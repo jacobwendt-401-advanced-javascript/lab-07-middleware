@@ -4,8 +4,11 @@ const express = require('express');
 
 const app = express();
 
+const missing = require('./lib/middleware/missing');
+const logger = require('./lib/middleware/error-logger');
 const time = require('./lib/middleware/requestTime');
 const log = require('./lib/middleware/console-log');
+const selfDestruct = require('./lib/middleware/selfDestruct');
 
 //use these middleware
 app.use(time);
@@ -24,7 +27,7 @@ app.get('/c', (req,res) => {
   res.status(200).send('Route C');
 });
 
-app.get('/d', (req,res) => {
+app.get('/d', selfDestruct, (req,  res) => {
   res.status(200).send('Route D');
 });
 
@@ -34,10 +37,9 @@ app.get('/test/error', () => {
 
 
 //ERROR HANDLERS
-const missing = require('./lib/middleware/missing');
+
 app.use(missing);
 
-const logger = require('./lib/middleware/logger');
 app.use(logger);
 
 
