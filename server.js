@@ -5,10 +5,11 @@ const express = require('express');
 const app = express();
 
 const time = require('./lib/middleware/requestTime');
-
+const log = require('./lib/middleware/console-log');
 
 //use these middleware
 app.use(time);
+app.use(log);
 
 //ROUTES
 app.get('/', (req,res) => {
