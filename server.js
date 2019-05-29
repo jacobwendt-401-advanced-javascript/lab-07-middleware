@@ -11,8 +11,8 @@ const time = require('./lib/middleware/requestTime');
 app.use(time);
 
 //ROUTES
-app.get('/a', (req,res) => {
-  res.status(200).send('Route A');
+app.get('/', (req,res) => {
+  res.status(200).send('Home');
 });
 
 app.get('/b', (req,res) => {
