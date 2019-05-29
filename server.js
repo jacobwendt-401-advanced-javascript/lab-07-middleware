@@ -4,8 +4,6 @@ const express = require('express');
 
 const app = express();
 
-const missing = require('./lib/middleware/missing');
-const logger = require('./lib/middleware/error-logger');
 const time = require('./lib/middleware/requestTime');
 const log = require('./lib/middleware/console-log');
 const selfDestruct = require('./lib/middleware/selfDestruct');
@@ -37,9 +35,9 @@ app.get('/test/error', () => {
 
 
 //ERROR HANDLERS
-
+const missing = require('./lib/middleware/missing');
+const logger = require('./lib/middleware/error-logger');
 app.use(missing);
-
 app.use(logger);
 
 
