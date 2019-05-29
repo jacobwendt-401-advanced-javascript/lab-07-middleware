@@ -1,6 +1,6 @@
-# LAB: HTTP and REST
+# LAB: Express
 
-Get your hands dirty in using and properly documenting an API
+**This is a paired Lab**
 
 ## Before you begin
 Refer to *Getting Started*  in the [lab submission instructions](../../../reference/submission-instructions/labs/README.md) for complete setup, configuration, deployment, and submission instructions.
@@ -22,53 +22,58 @@ Once you have a good visual and mental model of how the application works, break
 ---
 
 ## Getting Started
+In the `starter-code`, there are folders that map to each of the lab assignments. You'll be creating 3 new repositories today, one for each part of the assignment.
 
 ## Requirements
 
-### Build a working JSON Server
+### Middleware, Routing, Modularization Practice
+* Create a repository called `lab-07-middleware` and copy the contents of the `starter-code/middleware` folder into it
+* Complete the following tasks in the `server.js` file
+  * Write error handling middleware
+  * Write not found middleware and a catch-all route that uses it
+  * Write middleware that runs on every route that adds a property called `requestTime` with a value of the current Date/Time to the request object
+  * Write middleware that runs on every route that will run a `console.log()` containing the **method**, **path**, and the new property `requestTime` from the request
+  * Write middleware that runs only on the `/d` route that raises an error using `next`
+  * Write middleware that runs only on the `/b` route that takes a number as a parameter, squares it, and and sets that value on the request object in a property called `number`
+    * Alter the `/b` route to `.send()` that number from the request object to the browser
+* Ensure that all of your routes and middleware work as expected
+* Create a router in a separate file called `routes.js`
+  * Move just the `/c` and `/d` routes into it
+  * Export it
+  * Import it into the server file and properly `use()` it
+  
+**Engineering Note** - *Modularity is a tool that not only makes your code more readable and consumable by other developers, it helps you to think about how to break problems down*
 
-* Implement an API server suitable for a storefront, using json-server
-  * Install `json-server` globally
-  * Create a new repository called "simple-api"
-  * Create a folder called `data` with a `db.json` file
-  * Start json-server from within the `simple-api` folder and "watch" your database file
-    * `json-server --watch=./data/db.json`
-  * Data models should contain the following fields:
-    * `categories`
-      * `_id`, `name`, `display_name`, `description`
-    * `products`
-      * `_id`, `category`, `name`, `display_name`, `description`
-  * Your api will (should) respond to the following endpoints:
-    * `/categories`  GET, POST
-    * `/categories/:id/` PUT, DELETE
-    * `/products`  GET, POST
-    * `/products/:id/` PUT, DELETE
 
-* Connect a web server
-  * Open this [React Application](https://codesandbox.io/s/w638oyk7o8) and "Fork" it
-  * Open the .env file and enter the URL to your API Server
-  * This server is configured to use the routes noted in the first lab requirement
-  * If your lab is working, this app will show your API Data!
+### API Server
+* Create a repository called `lab-07-api-server` and copy the contents of the `starter-code/api-server` folder into it
+* Complete the server's CRUD functionality
+  * Implement DELETE
+  * Implement PUT
+* Implement data integrity checking
+  * Create a constructor that all input for new and updated records (POST and PUT) can be run through
+  * This constructor should return a properly formatted and validated object (type checked, and required fields)
+  * Only with a good object, should a write operation be allowed to occur
+* JSDoc for all methods, routes
+* Provide full swagger documentation
+  * Your Lab-06 Swagger should be suitable as a starting point
+  * Wire up to a route called `/docs/api` using the `swagger-ui-express` npm module
+  * Note that your routes might be different as well as the returned data shape ... update accordingly
 
-* Swagger Documentation
-  * In your API, Create a folder called `docs`
-  * Write and publish swagger documentation with Swagger Editor
-    * Open [Swagger Editor](https://swagger.io/tools/swagger-editor/)
-    * Review and use swagger's default **Pet Store** documentation for reference
-    * Copy and paste swagger.json from starter code into the editor, resolve errors, and complete missing documentation
-
+**Engineering Note** - *Testing servers without side-effects is crucial. More critical is not having to manage starting/stopping a server in multiple environments.*
 
 ### Testing
-**No automated testing is required for this assignment**
+* Server tests have been partially provided
+  * Complete the tests to cover all of your routes
+* Write unit tests for the middleware
+* Write unit tests for the data model
 
 
 ### Stretch Goal:
-* Alter json-server to produce proper standardized API output
-  * Rather than just an array of objects on a get
-    * Return an object with a `count: ##` property and a `results: []` array
-    * To do this, you'll need a server.js that requires in json-server and which overrides the renderer.  You will find instructions and examples on the json-server github page
-  * Alter the swagger docs to reflect the new json format
-  * Alter the www server to use the new json format
+* Add support for `products`
+  * New Model
+  * Additional Routes
+
 
 ## Assignment Submission Instructions
 Refer to the the [lab submission instructions](../../../reference/submission-instructions/labs/README.md) for the complete lab submission process and expectations
