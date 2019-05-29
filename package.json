@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "jest"
+    "start": "node server.js",
+    "test": "jest",
+    "watch": "nodemon ."
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,7 @@
     "express": "^4.16.4",
     "jest": "^24.8.0",
     "nodemon": "^1.19.1",
-    "server-js": "^0.1.4"
+    "server-js": "^0.1.4",
+    "supertest": "^4.0.2"
   }
 }
