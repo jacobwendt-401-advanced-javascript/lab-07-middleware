@@ -1,8 +1,14 @@
 'use strict';
 
 const express = require('express');
+
 const app = express();
-const PORT = process.env.PORT || 8080;
+
+const time = require('./lib/middleware/requestTime');
+
+
+//use these middleware
+app.use(time);
 
 //ROUTES
 app.get('/a', (req,res) => {
@@ -33,6 +39,8 @@ app.use(missing);
 const logger = require('./lib/middleware/logger');
 app.use(logger);
 
+
+
 module.exports = {
   server: app,
   start: port => {
@@ -42,3 +50,5 @@ module.exports = {
     });
   }
 };
+
+

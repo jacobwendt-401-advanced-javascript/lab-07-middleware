@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node .",
     "test": "jest",
     "watch": "nodemon ."
   },
@@ -17,6 +17,7 @@
     "jest": "^24.8.0",
     "nodemon": "^1.19.1",
     "server-js": "^0.1.4",
+    "superagent": "^5.0.5",
     "supertest": "^4.0.2"
   }
 }
