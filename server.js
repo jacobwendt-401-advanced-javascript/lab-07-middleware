@@ -7,21 +7,22 @@ const app = express();
 const time = require('./lib/middleware/requestTime');
 const log = require('./lib/middleware/console-log');
 const selfDestruct = require('./lib/middleware/selfDestruct');
+const number = require('./lib/middleware/squareANumber');
 
 //use these middleware
 app.use(time);
 app.use(log);
 
 //ROUTES
-app.get('/', (req,res) => {
+app.get('/', (req, res) => {
   res.status(200).send('Home');
 });
 
-app.get('/b', (req,res) => {
-  res.status(200).send('Route B');
+app.get('/b', number, (req, res) => {
+  res.status(200).send(`Route B ${req.numberSquared}`);
 });
 
-app.get('/c', (req,res) => {
+app.get('/c', (req, res) => {
   res.status(200).send('Route C');
 });
 
