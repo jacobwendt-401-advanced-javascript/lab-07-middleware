@@ -22,13 +22,7 @@ app.get('/b', number, (req, res) => {
   res.status(200).send(`Route B ${req.numberSquared}`);
 });
 
-app.get('/c', (req, res) => {
-  res.status(200).send('Route C');
-});
-
-app.get('/d', selfDestruct, (req,  res) => {
-  res.status(200).send('Route D');
-});
+app.use(require('./routes'));
 
 app.get('/test/error', () => {
   throw new Error('It exploded intentionally');
