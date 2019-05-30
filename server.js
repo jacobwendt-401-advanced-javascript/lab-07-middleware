@@ -31,14 +31,15 @@ app.get('/d', selfDestruct, (req,  res) => {
 });
 
 app.get('/test/error', () => {
-  throw 'ERROR';
+  throw new Error('It exploded intentionally');
 });
 
 
 //ERROR HANDLERS
 const missing = require('./lib/middleware/missing');
-const logger = require('./lib/middleware/error-logger');
 app.use(missing);
+
+const logger = require('./lib/middleware/error-logger');
 app.use(logger);
 
 
