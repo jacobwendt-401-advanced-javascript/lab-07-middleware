@@ -5,30 +5,27 @@ const express = require('express');
 const app = express();
 
 const time = require('./lib/middleware/requestTime');
-
+const log = require('./lib/middleware/console-log');
+const selfDestruct = require('./lib/middleware/selfDestruct');
+const number = require('./lib/middleware/squareANumber');
 
 //use these middleware
 app.use(time);
+app.use(log);
 
 //ROUTES
-app.get('/', (req,res) => {
+app.get('/', (req, res) => {
   res.status(200).send('Home');
 });
 
-app.get('/b', (req,res) => {
-  res.status(200).send('Route B');
+app.get('/b', number, (req, res) => {
+  res.status(200).send(`Route B ${req.numberSquared}`);
 });
 
-app.get('/c', (req,res) => {
-  res.status(200).send('Route C');
-});
-
-app.get('/d', (req,res) => {
-  res.status(200).send('Route D');
-});
+app.use(require('./routes'));
 
 app.get('/test/error', () => {
-  throw 'ERROR';
+  throw new Error('It exploded intentionally');
 });
 
 
@@ -36,7 +33,7 @@ app.get('/test/error', () => {
 const missing = require('./lib/middleware/missing');
 app.use(missing);
 
-const logger = require('./lib/middleware/logger');
+const logger = require('./lib/middleware/error-logger');
 app.use(logger);
 
 
@@ -48,7 +45,7 @@ module.exports = {
     app.listen(PORT, () => {
       console.log(`Listening on ${PORT}...`);
     });
-  }
+  },
 };
 
 
